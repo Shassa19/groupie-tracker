@@ -18,7 +18,7 @@ func main() {
 	url := "https://groupietrackers.herokuapp.com/api"
 
 	spaceClient := http.Client{
-		Timeout: time.Second * 2, // Timeout after 2 seconds
+		Timeout: time.Second * 2,
 	}
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
