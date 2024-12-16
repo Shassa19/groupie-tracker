@@ -51,6 +51,6 @@ func main() {
 		members := strings.Join(artist.Members, ", ")
 		fmt.Printf("Nom: %s,\n ID: %d,\n Image: %s,\n Membres: %v,\n Date de création: %d,\n Premier album: %s\n",
 			artist.Name, artist.ID, artist.Image, members, artist.CreationDate, artist.FirstAlbum)
-		fmt.Println("\n ----------------------------------------------------------------------------------- \n")
+		fmt.Println("\n-----------------------------------------------------------------------------------")
 	}
 }
