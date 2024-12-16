@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// On définit la structure de l'Artist
 type Artist struct {
 	ID           int      `json:"id"`
 	Name         string   `json:"name"`
@@ -18,27 +19,35 @@ type Artist struct {
 
 func main() {
 
-	url := "https://groupietrackers.herokuapp.com/api"
+	url := "https://groupietrackers.herokuapp.com/api/artists"
 
+	// Detecte l'erreur lors de la requête
 	response, err := http.Get(url)
 	if err != nil {
 		fmt.Println("Erreur lors de la requête :", err)
 		return
 	}
 	defer response.Body.Close()
+
+	// Detecte lorsque ezrreur pdt la lecrure de la réponse
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		fmt.Println("Erreur lors de la lecture de la réponse :", err)
 		return
 	}
 
-	var data ApiResponse
+	var artists []Artist
 
-	err = json.Unmarshal(body, &data)
+	// Detecte reeur lors du décodage
+	err = json.Unmarshal(body, &artists)
 	if err != nil {
 		fmt.Println("Erreur lors du décodage JSON :", err)
 		return
 	}
 
-	fmt.Printf("Données récupérées : %+v\n", data)
+	// On affiche les donées recuperées
+	for _, artist := range artists {
+		fmt.Printf("Nom: %s, ID: %d, Image: %s, Membres: %v, Date de création: %d, Premier album: %s\n",
+			artist.Name, artist.ID, artist.Image, artist.Members, artist.CreationDate, artist.FirstAlbum)
+	}
 }
