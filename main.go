@@ -7,16 +7,18 @@ import (
 	"net/http"
 )
 
-type ApiResponse struct {
-	UserID    int    `json:"userId"`
-	ID        int    `json:"id"`
-	Title     string `json:"title"`
-	Completed bool   `json:"completed"`
+type Artist struct {
+	ID           int      `json:"id"`
+	Name         string   `json:"name"`
+	Image        string   `json:"image"`
+	Members      []string `json:"members"`
+	CreationDate int      `json:"creationDate"`
+	FirstAlbum   string   `json:"firstAlbum"`
 }
 
 func main() {
 
-	url := "https://jsonplaceholder.typicode.com/todos/1"
+	url := "https://groupietrackers.herokuapp.com/api"
 
 	response, err := http.Get(url)
 	if err != nil {
