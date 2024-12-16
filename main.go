@@ -3,8 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
+	"strings"
 )
 
 // On définit la structure de l'Artist
@@ -30,7 +31,7 @@ func main() {
 	defer response.Body.Close()
 
 	// Detecte lorsque ezrreur pdt la lecrure de la réponse
-	body, err := ioutil.ReadAll(response.Body)
+	body, err := io.ReadAll(response.Body)
 	if err != nil {
 		fmt.Println("Erreur lors de la lecture de la réponse :", err)
 		return
@@ -47,7 +48,9 @@ func main() {
 
 	// On affiche les donées recuperées
 	for _, artist := range artists {
-		fmt.Printf("Nom: %s, ID: %d, Image: %s, Membres: %v, Date de création: %d, Premier album: %s\n",
-			artist.Name, artist.ID, artist.Image, artist.Members, artist.CreationDate, artist.FirstAlbum)
+		members := strings.Join(artist.Members, ", ")
+		fmt.Printf("Nom: %s,\n ID: %d,\n Image: %s,\n Membres: %v,\n Date de création: %d,\n Premier album: %s\n",
+			artist.Name, artist.ID, artist.Image, members, artist.CreationDate, artist.FirstAlbum)
+		fmt.Println("\n ----------------------------------------------------------------------------------- \n")
 	}
 }
