@@ -4,49 +4,39 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
-	"time"
 )
 
-type people struct {
-	Number int `json:"number"`
+type ApiResponse struct {
+	UserID    int    `json:"userId"`
+	ID        int    `json:"id"`
+	Title     string `json:"title"`
+	Completed bool   `json:"completed"`
 }
 
 func main() {
 
-	url := "https://groupietrackers.herokuapp.com/api"
+	url := "https://jsonplaceholder.typicode.com/todos/1"
 
-	spaceClient := http.Client{
-		Timeout: time.Second * 2,
-	}
-
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+	response, err := http.Get(url)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("Erreur lors de la requête :", err)
+		return
+	}
+	defer response.Body.Close()
+	body, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		fmt.Println("Erreur lors de la lecture de la réponse :", err)
+		return
 	}
 
-	req.Header.Set("User-Agent", "spacecount-tutorial")
+	var data ApiResponse
 
-	res, getErr := spaceClient.Do(req)
-	if getErr != nil {
-		log.Fatal(getErr)
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		fmt.Println("Erreur lors du décodage JSON :", err)
+		return
 	}
 
-	if res.Body != nil {
-		defer res.Body.Close()
-	}
-
-	body, readErr := ioutil.ReadAll(res.Body)
-	if readErr != nil {
-		log.Fatal(readErr)
-	}
-
-	people1 := people{}
-	jsonErr := json.Unmarshal(body, &people1)
-	if jsonErr != nil {
-		log.Fatal(jsonErr)
-	}
-
-	fmt.Println(people1.Number)
+	fmt.Printf("Données récupérées : %+v\n", data)
 }
