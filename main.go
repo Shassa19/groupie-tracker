@@ -1,65 +1,41 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
+	api "groupie/Api"
+	"log"
 	"net/http"
-	"strings"
+	"text/template"
 )
 
-// On définit la structure de l'Artist
-type Artist struct {
-	ID           int      `json:"id"`
-	Name         string   `json:"name"`
-	Image        string   `json:"image"`
-	Members      []string `json:"members"`
-	CreationDate int      `json:"creationDate"`
-	FirstAlbum   string   `json:"firstAlbum"`
-}
+var artists []api.Artist
 
-var artists []Artist
-
-// Fonction pour récupérer les données depuis l'API
-func fetchArtists(url string) ([]Artist, error) {
-	response, err := http.Get(url)
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("index.html")
 	if err != nil {
-		return nil, fmt.Errorf("Erreur lors de la requête : %v", err)
+		http.Error(w, "Erreur lors du chargement de la page HTML", http.StatusInternalServerError)
+		return
 	}
-	defer response.Body.Close()
-
-	body, err := io.ReadAll(response.Body)
-	if err != nil {
-		return nil, fmt.Errorf("Erreur lors de la lecture de la réponse : %v", err)
-	}
-
-	var fetchedArtists []Artist
-	err = json.Unmarshal(body, &fetchedArtists)
-	if err != nil {
-		return nil, fmt.Errorf("Erreur lors du décodage JSON : %v", err)
-	}
-	return fetchedArtists, nil
-}
-
-// Fonction pour afficher les artistes
-func displayArtists(artists []Artist) {
-	for _, artist := range artists {
-		members := strings.Join(artist.Members, ", ")
-		fmt.Printf("Nom: %s,\n ID: %d,\n Image: %s,\n Membres: %v,\n Date de création: %d,\n Premier album: %s\n",
-			artist.Name, artist.ID, artist.Image, members, artist.CreationDate, artist.FirstAlbum)
-		fmt.Println("\n-----------------------------------------------------------------------------------")
-	}
+	tmpl.Execute(w, artists) // On donne les artistes à la page HTML
 }
 
 func main() {
+	// URL de l'API pour récupérer les artistes
 	url := "https://groupietrackers.herokuapp.com/api/artists"
 
+	// On récupère les artistes depuis l'API via la fonction fetchArtists du package api
 	var err error
-	artists, err = fetchArtists(url)
+	artists, err = api.FetchArtists(url)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err) // Affichage d'une erreur si la récupération échoue
 		return
 	}
 
-	displayArtists(artists)
+	// Affichage des artistes dans la console avec la fonction displayArtists du package api
+	api.DisplayArtists(artists)
+
+	// On démarre le serveur HTTP
+	http.HandleFunc("/", homeHandler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
+
 }

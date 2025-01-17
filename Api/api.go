@@ -18,8 +18,6 @@ type Artist struct {
 	FirstAlbum   string   `json:"firstAlbum"`
 }
 
-var artists []Artist
-
 // Fonction pour récupérer les données depuis l'API
 func FetchArtists(url string) ([]Artist, error) {
 	response, err := http.Get(url)
