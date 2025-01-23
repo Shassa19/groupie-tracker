@@ -36,7 +36,7 @@ func main() {
 
 	// On démarre le serveur HTTP
 	http.HandleFunc("/", homeHandler)
-	http.Handle("/styles.css", http.FileServer(http.Dir(".")))
+	http.Handle("/Styles/style.css", http.FileServer(http.Dir(".")))
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
 }
