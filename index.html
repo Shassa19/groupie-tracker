@@ -6,11 +6,12 @@
     <title>Groupie Trackers</title>
     <style>
         .artist {
-            border: 1px solid #ddd;
             padding: 10px;
             margin: 10px;
             border-radius: 5px;
-            background-color: #f9f9f9;
+            width  : 150px;
+            height : 150px;
+            background : green;
         }
         img {
             max-width: 100px;
@@ -24,10 +25,10 @@
     {{range .}}
     <div class="artist">
         <h2>{{.Name}}</h2>
-        <p>ID: {{.ID}}</p>
+        <!-- <p>ID: {{.ID}}</p>
         <p>Membres: {{range .Members}}{{.}}, {{end}}</p>
         <p>Date de création: {{.CreationDate}}</p>
-        <p>Premier album: {{.FirstAlbum}}</p>
+        <p>Premier album: {{.FirstAlbum}}</p> -->
     </div>
     {{end}}
 </body>
