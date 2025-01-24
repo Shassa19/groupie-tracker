@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	api "groupie/Api"
 	"log"
 	"net/http"
@@ -39,34 +38,32 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 	// Récupère l'artiste correspondant
 	artist := artists[id-1]
 
-	// Charge et affiche la page infoartist.html
 	tmpl, err := template.ParseFiles("infoartist.html")
 	if err != nil {
 		http.Error(w, "Erreur lors du chargement de la page HTML", http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, artist) // Passe l'artiste à la page HTML
+	tmpl.Execute(w, artist)
 }
 
 func main() {
-	// URL de l'API pour récupérer les artistes
 	url := "https://groupietrackers.herokuapp.com/api/artists"
 
-	// On récupère les artistes depuis l'API via la fonction fetchArtists du package api
+	// on utilise fetchArtist pour récuperer les artists depuis l'API
 	var err error
 	artists, err = api.FetchArtists(url)
 	if err != nil {
-		fmt.Println(err) // Affichage d'une erreur si la récupération échoue
+		log.Printf("Erreur lors de la récupération des artistes depuis l'API : %v", err)
 		return
 	}
 
 	// Affichage des artistes dans la console avec la fonction displayArtists du package api
 	api.DisplayArtists(artists)
 
-	// On démarre le serveur HTTP
+	// On démarre le serveur http://localhost:8080
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/infoartist/", artistHandler)
-	http.Handle("/Styles/style.css", http.FileServer(http.Dir(".")))
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
 }
