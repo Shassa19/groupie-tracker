@@ -19,6 +19,15 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, artists) // On donne les artistes à la page HTML
 }
 
+func artistHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("infoArtist.html")
+	if err != nil {
+		http.Error(w, "Erreur lors du chargement de la page HTML", http.StatusInternalServerError)
+		return
+	}
+	tmpl.Execute(w, artists) // On donne les artistes à la page HTML
+}
+
 func main() {
 	// URL de l'API pour récupérer les artistes
 	url := "https://groupietrackers.herokuapp.com/api/artists"
@@ -36,6 +45,7 @@ func main() {
 
 	// On démarre le serveur HTTP
 	http.HandleFunc("/", homeHandler)
+	http.HandleFunc("/infoartist", artistHandler)
 	http.Handle("/Styles/style.css", http.FileServer(http.Dir(".")))
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
