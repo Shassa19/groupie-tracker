@@ -12,9 +12,9 @@
     <h1>Liste des Artistes</h1>
     <div class="artists-container">
         {{range .}}
-        <a href="/infoartist">
+        <a href="/infoartist/{{.ID}}">
             <div class="artist">
-                <img src="{{.Image}}">
+                <img src="{{.Image}}" alt="Image de {{.Name}}">
                 <h2>{{.Name}}</h2>
             </div>
         </a>
