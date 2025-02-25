@@ -39,15 +39,25 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Récupère l'artiste correspondant
-	relation, _ := apiRelation.FetchInfos(id - 1)
+	relation, _ = apiRelation.FetchInfos(id)
 
 	// Charge et affiche la page infoartist.html
-	tmpl, err := template.ParseFiles("infoartist.html")
+	tmpl, err := template.ParseFiles("infoArtist.html")
 	if err != nil {
 		http.Error(w, "Erreur lors du chargement de la page HTML", http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, relation) // Passe l'artiste à la page HTML
+
+	println(relation.DatesLocations["georgia-usa"])
+
+	type Data struct {
+		Artist   api.Artist
+		Relation apiRelation.Relation
+	}
+	data := Data{Artist: artists[id-1], Relation: relation}
+	println(data.Relation.DatesLocations)
+
+	tmpl.Execute(w, data) // Passe l'artiste à la page HTML
 }
 
 func main() {

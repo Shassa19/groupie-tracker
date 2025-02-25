@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informations sur {{.Name}}</title>
+    <title>Informations sur {{.Artist.Name}}</title>
     <link rel="stylesheet" href="/style/styleArtist.css">
 </head>
 
@@ -24,18 +24,20 @@
         </div>
         <div class="Artist">
             <div class="presentationArtist">
-                <img src="{{.Image}}" alt="Image de {{.Name}}">
+                <img src="{{.Artist.Image}}" alt="Image de {{.Artist.Name}}">
                 <div class="infoArtist">
-                    <h1>{{.Name}}</h1>
-                    <h2><span>Creation date :</span> {{.CreationDate}}</h2>
-                    <h2><span>First Album :</span> {{.FirstAlbum}}</h2>
-                    <h2><span>Members :</span> {{.Members}}</h2>
+                    <h1>{{.Artist.Name}}</h1>
+                    <h2><span>Creation date :</span> {{.Artist.CreationDate}}</h2>
+                    <h2><span>First Album :</span> {{.Artist.FirstAlbum}}</h2>
+                    <h2><span>Members :</span> {{.Artist.Members}}</h2>
                 </div>
             </div>
             <div class="infoConcerts">
                 <h1>Concerts</h1>
                 <div class="concerts">
-                    <h2>{{.DatesLocation}}</h2>
+                    {{ range $key, $value := .Relation.DatesLocations}}
+                    <strong>{{$key}},</strong> {{$value}}
+                    {{end}}
                 </div>
             </div>
         </div>
