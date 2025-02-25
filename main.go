@@ -1,7 +1,9 @@
 package main
 
 import (
-	api "groupie/Api"
+	"fmt"
+	api "groupie-tracker/Api"
+	apiRelation "groupie-tracker/ApiRelation"
 	"log"
 	"net/http"
 	"strconv"
@@ -10,6 +12,7 @@ import (
 )
 
 var artists []api.Artist
+var relation []apiRelation.Relation
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("index.html")
@@ -38,32 +41,40 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 	// Récupère l'artiste correspondant
 	artist := artists[id-1]
 
+	// Charge et affiche la page infoartist.html
 	tmpl, err := template.ParseFiles("infoartist.html")
 	if err != nil {
 		http.Error(w, "Erreur lors du chargement de la page HTML", http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, artist)
+	tmpl.Execute(w, artist) // Passe l'artiste à la page HTML
 }
 
 func main() {
+	// URL de l'API principale pour récupérer les artistes
 	url := "https://groupietrackers.herokuapp.com/api/artists"
 
-	// on utilise fetchArtist pour récuperer les artists depuis l'API
+	// On récupère les artistes depuis l'API principale via la fonction fetchArtists du package api
 	var err error
 	artists, err = api.FetchArtists(url)
 	if err != nil {
-		log.Printf("Erreur lors de la récupération des artistes depuis l'API : %v", err)
+		fmt.Println(err) // Affichage d'une erreur si la récupération échoue
 		return
 	}
 
-	// Affichage des artistes dans la console avec la fonction displayArtists du package api
-	api.DisplayArtists(artists)
+	var erro error
+	relation, erro = apiRelation.FetchInfos(5)
+	if erro != nil {
+		fmt.Println(erro) // Affichage d'une erreur si la récupération échoue
+		return
+	}
 
-	// On démarre le serveur http://localhost:8080
+	// On démarre le serveur HTTP
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/infoartist/", artistHandler)
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
+	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
+
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
 }
