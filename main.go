@@ -12,7 +12,7 @@ import (
 )
 
 var artists []api.Artist
-var relation []apiRelation.Relation
+var relation apiRelation.Relation
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl, err := template.ParseFiles("index.html")
@@ -24,7 +24,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func artistHandler(w http.ResponseWriter, r *http.Request) {
-	// Récupère l'ID depuis l'URL après "/infoartist/"
+	// Récupère l'ID depuis l'URL après "/infoartist/
 	idParam := strings.TrimPrefix(r.URL.Path, "/infoartist/")
 	if idParam == "" {
 		http.Error(w, "ID de l'artiste manquant", http.StatusBadRequest)
@@ -39,7 +39,7 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Récupère l'artiste correspondant
-	artist := artists[id-1]
+	relation, _ := apiRelation.FetchInfos(id - 1)
 
 	// Charge et affiche la page infoartist.html
 	tmpl, err := template.ParseFiles("infoartist.html")
@@ -47,7 +47,7 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Erreur lors du chargement de la page HTML", http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, artist) // Passe l'artiste à la page HTML
+	tmpl.Execute(w, relation) // Passe l'artiste à la page HTML
 }
 
 func main() {
@@ -59,13 +59,6 @@ func main() {
 	artists, err = api.FetchArtists(url)
 	if err != nil {
 		fmt.Println(err) // Affichage d'une erreur si la récupération échoue
-		return
-	}
-
-	var erro error
-	relation, erro = apiRelation.FetchInfos(5)
-	if erro != nil {
-		fmt.Println(erro) // Affichage d'une erreur si la récupération échoue
 		return
 	}
 
