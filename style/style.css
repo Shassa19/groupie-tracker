@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'MontserratAlternates';
+    src: url('/assets/fonts/MontserratAlternates-SemiBold.ttf') format('truetype');
+}
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:900i');
+
 body {
     font-family: Arial, sans-serif;
     background-color: #2e2e2e !important;
@@ -8,17 +15,145 @@ body {
     align-items: center;
 }
 
+body {
+    background-color: #2e2e2e; /* Fond sombre */
+    color: white;
+    transition: background 0.3s ease-in-out;
+}
+
+body.light-mode {
+    background-color: #d4d4d4; /* Fond clair */
+    color: black;
+}
+
 h1 {
     color: #d2d2d2;
-    text-align: center;
-    margin-top: 20px;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #1e1e1e;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    font-family: 'MontserratAlternates', sans-serif;
+    margin-left: 30px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-right: 30px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: #3a3a3a;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.search-bar input {
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+}
+
+.search-bar button {
+    background: #555;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/** Bouton pour la mode nuit */
+
+.toggle-mode {
+    width: 60px;
+    height: 30px;
+    background: #d4d4d4;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+.toggle-handle {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: #333;
+    border-radius: 50%;
+    top: 7px;
+    left: 7px;
+    transition: left 0.3s ease-in-out;
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+}
+
+.sun {
+    right: 6px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    top: 4px;
+}
+
+.moon {
+    left: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    top: 4px;
+}
+
+.toggle-mode.active {
+    background: #555;
+}
+
+.toggle-mode.active .toggle-handle {
+    left: 35px;
+}
+
+.toggle-mode.active .sun {
+    opacity: 0;
+}
+
+.toggle-mode.active .moon {
+    opacity: 1;
+}
+ /**Fin mode nuit*/
+
+.featured-artists {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 150px;
 }
 
 .artists-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 350px;
 }
 
 .artist {
@@ -49,3 +184,165 @@ img {
     height: 200px;
     border-radius: 5px;
 }
+
+.spinning-disk {
+    position: absolute;
+    bottom: 210px;
+    left: -175px; /* Déplace encore plus à gauche */
+    width: 900px; /* Ajuste la taille pour le fond */
+    height: 800px;
+    overflow: hidden; /* Cache la partie qui dépasse */
+    z-index: -1; /* Met le disque en arrière-plan */
+    transform: rotate(90deg); /* Tourne de 45° à droite */
+}
+
+.spinning-disk img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajuste l’image sans déformation */
+}
+
+.scroll-container {
+    display: relative;
+    justify-content: 100px; 
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px;
+    margin-left: 25px;
+}
+
+
+.scroll-bar {
+    width: 900px;
+    height: 21px;
+    background-color: #D4D4D4;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 1); /* Ombre douce */
+}
+
+.scroll-handle {
+    width: 100px; /* Largeur du curseur */
+    height: 17px; /* Même hauteur que la barre */
+    background-color: #888;
+    border-radius: 10px;
+    position: absolute;
+    left: 2px; /* Démarre à gauche */
+    top: 2px; /* Alignement parfait avec la barre */
+    cursor: grab;
+}
+
+
+/** Footer */
+.separator {
+    width: 65%; /* Ajuste la largeur */
+    margin: 40px auto; /* Espace au-dessus et en dessous */
+    border: none;
+    height: 3px;
+    background-color: #D9D9D9; /* Couleur de la barre */
+}
+
+footer {
+    font-family: 'MontserratAlternates', sans-serif; /* Change la police */
+    color: #FFFF; /* Change la couleur du texte */
+    text-align: center; /* Centre le texte */
+    opacity: 30%;
+}
+
+
+/** Entiereté du bouton "filtres" */
+.filters {
+    text-align: left;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .cta {
+      position: absolute;
+      top: 750px;
+      left: 150px; 
+      display: flex;
+      padding: 10px 45px;
+      text-decoration: none;
+      font-family: 'MontserratAlternates', sans-serif;
+      font-size: 40px;
+      color: black;
+      background: #D9D9D9;
+      transition: 1s;
+      box-shadow: 6px 6px 0 #5D6D7E;
+      transform: skewX(-15deg);
+  }
+  
+  .cta:focus {
+     outline: none; 
+  }
+  
+  .cta:hover {
+      transition: 0.5s;
+      box-shadow: 10px 10px 0 #FBC638;
+  }
+  
+  .cta span:nth-child(2) {
+      transition: 0.5s;
+      margin-right: 0px;
+  }
+  
+  .cta:hover  span:nth-child(2) {
+      transition: 0.5s;
+      margin-right: 45px;
+  }
+  
+    span {
+      transform: skewX(15deg) 
+    }
+  
+    span:nth-child(2) {
+      width: 20px;
+      margin-left: 30px;
+      position: relative;
+      top: 12%;
+    }
+    
+  /**************SVG****************/
+  
+  path.one {
+      transition: 0.4s;
+      transform: translateX(-60%);
+  }
+  
+  path.two {
+      transition: 0.5s;
+      transform: translateX(-30%);
+  }
+  
+  .cta:hover path.three {
+      animation: color_anim 1s infinite 0.2s;
+  }
+  
+  .cta:hover path.one {
+      transform: translateX(0%);
+      animation: color_anim 1s infinite 0.6s;
+  }
+  
+  .cta:hover path.two {
+      transform: translateX(0%);
+      animation: color_anim 1s infinite 0.4s;
+  }
+  
+  /* SVG animations */
+  
+  @keyframes color_anim {
+      0% {
+          fill: black;
+      }
+      50% {
+          fill: #F0DA10;
+      }
+      100% {
+          fill: black;
+      }
+  }
