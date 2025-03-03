@@ -1,47 +1,45 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informations sur {{.Artist.Name}}</title>
     <link rel="stylesheet" href="/style/styleArtist.css">
 </head>
-
 <body>
-    <div class="containerGlobal">
+    <div class="container">
+        <header>
+            <h2>DECOUVRE DE NOUVEAUX ARTISTES</h2>
+            <div class="search-bar">
+                <img src="/assets/Search.svg" alt="Recherche">
+                <input type="text" placeholder="Rechercher...">
+            </div>
+        </header>
+        
         <div class="background">
             <img src="/assets/noteMusique.png" alt="Notes musique" class="noteMusique">
-            <img src="/assets/disqueHaut.png" alt="Image du dsique du haut" class="disqueHaut">
-            <img src="/assets/disqueBas.png" alt="Image du dsique du bas" class="disqueBas">
+            <img src="/assets/disqueHaut.png" alt="Disque haut" class="disqueHaut">
+            <img src="/assets/disqueBas.png" alt="Disque bas" class="disqueBas">
         </div>
-        <div class="upBar">
-            <h2>Discover new Artists</h2>
-            <div class="schearchBar">
-                <img src="/assets/Search.svg" />
-                <input type="recherche">
+        
+        <div class="artist-info">
+            <button class="close-btn">&#10006;</button>
+            <img src="{{.Artist.Image}}" alt="Image de {{.Artist.Name}}" class="artist-img">
+            <div class="details">
+                <h1>{{.Artist.Name}}</h1>
+                <p><strong>Creation Date :</strong> {{.Artist.CreationDate}}</p>
+                <p><strong>First Album :</strong> {{.Artist.FirstAlbum}}</p>
+                <p><strong>Members :</strong> {{.Artist.Members}}</p>
             </div>
-        </div>
-        <div class="Artist">
-            <div class="presentationArtist">
-                <img src="{{.Artist.Image}}" alt="Image de {{.Artist.Name}}">
-                <div class="infoArtist">
-                    <h1>{{.Artist.Name}}</h1>
-                    <h2><span>Creation date :</span> {{.Artist.CreationDate}}</h2>
-                    <h2><span>First Album :</span> {{.Artist.FirstAlbum}}</h2>
-                    <h2><span>Members :</span> {{.Artist.Members}}</h2>
-                </div>
-            </div>
-            <div class="infoConcerts">
-                <h1>Concerts</h1>
-                <div class="concerts">
+            <div class="concerts">
+                <h2>Concerts</h2>
+                <ul class="concert-list">
                     {{ range $key, $value := .Relation.DatesLocations}}
-                    <strong>{{$key}},</strong> {{$value}}
+                        <li><strong>{{$key}} :</strong> {{$value}}</li>
                     {{end}}
-                </div>
+                </ul>
             </div>
         </div>
     </div>
 </body>
-
 </html>
