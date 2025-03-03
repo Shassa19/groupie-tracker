@@ -3,9 +3,9 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	apiRelation "groupie-tracker/ApiRelation"
 	"io"
 	"net/http"
-	"strings"
 )
 
 // On définit la structure de l'Artist
@@ -16,11 +16,20 @@ type Artist struct {
 	Members      []string `json:"members"`
 	CreationDate int      `json:"creationDate"`
 	FirstAlbum   string   `json:"firstAlbum"`
+	Relation     string   `json:"relations"`
 }
+
+type Relations struct {
+	ID             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"datesLocations"`
+}
+
+var relation apiRelation.Relation
 
 // Fonction pour récupérer les données depuis l'API
 func FetchArtists(url string) ([]Artist, error) {
 	response, err := http.Get(url)
+
 	if err != nil {
 		return nil, fmt.Errorf("Erreur lors de la requête : %v", err)
 	}
@@ -37,14 +46,5 @@ func FetchArtists(url string) ([]Artist, error) {
 		return nil, fmt.Errorf("Erreur lors du décodage JSON : %v", err)
 	}
 	return fetchedArtists, nil
-}
 
-// Fonction pour afficher les artistes
-func DisplayArtists(artists []Artist) {
-	for _, artist := range artists {
-		members := strings.Join(artist.Members, ", ")
-		fmt.Printf("Nom: %s,\n ID: %d,\n Image: %s,\n Membres: %v,\n Date de création: %d,\n Premier album: %s\n",
-			artist.Name, artist.ID, artist.Image, members, artist.CreationDate, artist.FirstAlbum)
-		fmt.Println("\n-----------------------------------------------------------------------------------")
-	}
 }

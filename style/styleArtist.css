@@ -1,0 +1,54 @@
+body {
+    background-color: #2E2E2E;
+    margin: 0px;
+
+}
+.background {
+    position : static;
+}
+.disqueHaut {
+    position :fixed;
+    max-width: 90%;
+    height: auto;
+    top: 0;
+    left: 0;
+}
+.disqueBas {
+    position :fixed;
+    max-width: 90%;
+    height: auto;
+    bottom: 0;
+    right: 0;
+}
+.noteMusique {
+    position :fixed;
+    max-width: 90%;
+    height: auto;
+    top: 0;
+    left: 0;
+}
+.Artist {
+    position :relative;
+    background-color: #5D6D7E;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+}
+.presentationArtist {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color : white;
+}
+h2 {
+    font-size: 32px;
+    font-weight: normal;
+}
+h2 span{
+    font-weight: bold;
+}
+.infoConcerts {
+    font-size: 20px ; 
+    color:red;
+}
