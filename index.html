@@ -28,19 +28,20 @@
         <div class="spinning-disk">
             <img src="assets/spinning_disk_20fps.gif" alt="Disque tournant">
         </div>
-        <div class="featured-artists">
-            <div class="artist"></div>
-            <div class="artist"></div>
-            <div class="artist"></div>
-        </div>
-        <div class="scroll-container">
-            <div class="scroll-bar">
-                <div class="scroll-handle"></div>
+
+        <div class="block-container">
+            <div class="featured-artists">
+                <div class="track">
+                    {{range .}}
+                    <a href="/infoartist/{{.ID}}" class="artist">
+                        <img src="{{.Image}}" alt="Image de {{.Name}}">
+                        <h2>{{.Name}}</h2>
+                    </a>
+                    {{end}}
+                </div>
             </div>
         </div>
     </section>
-
-    <script src="assets/js/script.js"></script>
     
     <section class="filters">
         <a class="cta" href="#">
@@ -56,7 +57,8 @@
             </span> 
           </a>
     </section>
-    
+
+
     <div class="artists-container">
         {{range .}}
         <a href="/infoartist/{{.ID}}">
@@ -67,8 +69,11 @@
         </a>
         {{end}}
     </div>
-    
+ 
+        
     <div class="separator"></div>
+
+    <script src="assets/js/script.js"></script>
 
     <footer>
         <p>© 2024 Groopie Trackers. Toute reproduction, même partielle, est interdite sans autorisation.</p>

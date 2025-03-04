@@ -142,18 +142,59 @@ header {
 }
  /**Fin mode nuit*/
 
+ /**---------------Carousel-----------------*/
+
+ .block-container {
+    position: relative;
+    margin-top: 150px;
+    width: 1400px; /* Largeur du panneau */
+    height: 600px; /* Hauteur du panneau */
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .featured-artists {
-    display: flex;
-    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: fit-content;
     gap: 20px;
     margin-top: 150px;
+    margin-left: 100px;
 }
+
+.track {
+    display: flex;
+    gap: 20px;
+    animation: carousel 120s linear infinite;
+}
+
+/* Animation de défilement */
+@keyframes carousel {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* Ajustement des images */
+.artist {
+    flex: 0 0 290px; /* Largeur fixe des éléments */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/**-----------------------Fin carousel-----------------------*/
 
 .artists-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 350px;
+    margin-top: 300px;
 }
 
 .artist {
@@ -202,38 +243,6 @@ img {
     object-fit: cover; /* Ajuste l’image sans déformation */
 }
 
-.scroll-container {
-    display: relative;
-    justify-content: 100px; 
-    width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 10px;
-    margin-left: 25px;
-}
-
-
-.scroll-bar {
-    width: 900px;
-    height: 21px;
-    background-color: #D4D4D4;
-    border-radius: 10px;
-    position: relative;
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 1); /* Ombre douce */
-}
-
-.scroll-handle {
-    width: 100px; /* Largeur du curseur */
-    height: 17px; /* Même hauteur que la barre */
-    background-color: #888;
-    border-radius: 10px;
-    position: absolute;
-    left: 2px; /* Démarre à gauche */
-    top: 2px; /* Alignement parfait avec la barre */
-    cursor: grab;
-}
-
-
 /** Footer */
 .separator {
     width: 65%; /* Ajuste la largeur */
@@ -263,7 +272,7 @@ footer {
   
   .cta {
       position: absolute;
-      top: 750px;
+      top: 970px;
       left: 150px; 
       display: flex;
       padding: 10px 45px;
