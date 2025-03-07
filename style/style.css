@@ -7,23 +7,23 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #2e2e2e !important;
+    background-color: #2e2e2e;
+    color: white; 
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-body {
-    background-color: #2e2e2e; /* Fond sombre */
-    color: white;
-    transition: background 0.3s ease-in-out;
+    transition: background-color 0.3s, color 0.3s; 
 }
 
 body.light-mode {
-    background-color: #d4d4d4; /* Fond clair */
+    background-color: #dcdcdc; 
     color: black;
+}
+
+a {
+    text-decoration: none;
 }
 
 h1 {
@@ -144,13 +144,20 @@ header {
 
  /**---------------Carousel-----------------*/
 
- .block-container {
+.block-container {
     position: relative;
     margin-top: 150px;
     width: 1400px; /* Largeur du panneau */
-    height: 600px; /* Hauteur du panneau */
+    height: 350px; /* Hauteur du panneau */
     white-space: nowrap;
     overflow: hidden;
+    box-shadow: inset 40px 0 20px -10px rgba(0, 0, 0, 0.5), inset -40px 0 20px -10px rgba(0, 0, 0, 0.5); /* Ombres sur les bords */
+    transition: 1s;
+}
+
+body.light-mode .block-container {
+    transition: 1s;
+    box-shadow: inset 15px 0 20px -10px rgba(0, 0, 0, 0.5), inset -15px 0 20px -10px rgba(0, 0, 0, 0.5);
 }
 
 .featured-artists {
@@ -158,9 +165,8 @@ header {
     white-space: nowrap;
     position: relative;
     width: fit-content;
-    gap: 20px;
-    margin-top: 70px;
-    margin-left: 100px;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .track {
@@ -179,9 +185,9 @@ header {
     }
 }
 
-/* Ajustement des images */
+/* Ajustement des images dans lex boxs*/
 .artist {
-    flex: 0 0 290px; /* Largeur fixe des éléments */
+    flex: 0 0 290px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -194,7 +200,7 @@ header {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 170px;
+    margin-top: 420px;
 }
 
 .artist {
@@ -212,10 +218,22 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s;
     cursor: pointer;
+    font-family: 'MontserratAlternates', sans-serif;
+    font-size: 14px;
+}
+
+body.light-mode .artist {
+    background-color: #FFFFFF;
+    color: #000000;
+    font-size: 14px;
 }
 
 .artist:hover {
     background-color: #555;
+}
+
+body.light-mode .artist:hover {
+    background-color: #dedede;
 }
 
 img {
@@ -234,29 +252,62 @@ img {
     height: 800px;
     overflow: hidden; /* Cache la partie qui dépasse */
     z-index: -1; /* Met le disque en arrière-plan */
-    transform: rotate(90deg); /* Tourne de 45° à droite */
+    transform: rotate(90deg); 
 }
 
 .spinning-disk img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ajuste l’image sans déformation */
+    object-fit: cover; 
+}
+
+.musical-note {
+    position: absolute;
+    top: 300px;
+    margin-left: 1200px;
+    z-index: -1;
+    transform: scale(4); /* Agrandir la note de musique par un facteur de 2 */
+    object-fit: contain;
+}
+
+.musical-note-container {
+    position: absolute;
+    top: 300px;
+    margin-left: 500px;
+    z-index: -1;
+    display: flex; /* Pour aligner les images l'une à côté de l'autre */
+    transform: scale(4);
+    justify-content: space-between;
+}
+
+.musical-note {
+    width: 100px; /* Ajuste la taille de l'image selon tes besoins */
+    height: 100px;
 }
 
 /** Footer */
 .separator {
     width: 65%; /* Ajuste la largeur */
-    margin: 40px auto; /* Espace au-dessus et en dessous */
+    margin: 40px; /* Espace au-dessus et en dessous */
     border: none;
     height: 3px;
-    background-color: #D9D9D9; /* Couleur de la barre */
+    background-color: #D9D9D9; 
+}
+
+body.light-mode .separator {
+    background-color: #2e2e2e; 
 }
 
 footer {
-    font-family: 'MontserratAlternates', sans-serif; /* Change la police */
-    color: #FFFF; /* Change la couleur du texte */
-    text-align: center; /* Centre le texte */
+    font-family: 'MontserratAlternates', sans-serif; 
+    color: #FFFF; 
+    text-align: center; 
     opacity: 30%;
+}
+
+body.light-mode footer {
+    color: #333333; 
+    opacity: 1; 
 }
 
 
@@ -281,13 +332,29 @@ footer {
       font-size: 40px;
       color: black;
       background: #D9D9D9;
-      transition: 1s;
+      transition: 0.3s;
       box-shadow: 6px 6px 0 #5D6D7E;
       transform: skewX(-15deg);
   }
+
+  body.light-mode .cta {
+    background: #373737;
+    color: #ffffff;
+    transition: 0.3s;
+  }
+
+  .cta path {
+    fill: #000000;
+    transition: 0.3s;
+  }
+
+  body.light-mode .cta path {
+    fill: #ffffff; /* Changer la couleur par défaut de la flèche en mode clair */
+    transition: 0.3s;
+  }
   
   .cta:focus {
-     outline: none; 
+    outline: none; 
   }
   
   .cta:hover {
@@ -305,16 +372,16 @@ footer {
       margin-right: 45px;
   }
   
-    span {
+  span {
       transform: skewX(15deg) 
-    }
-  
-    span:nth-child(2) {
+  }
+
+  span:nth-child(2) {
       width: 20px;
       margin-left: 30px;
       position: relative;
       top: 12%;
-    }
+  }
     
   /**************SVG****************/
   
@@ -355,3 +422,4 @@ footer {
           fill: black;
       }
   }
+
