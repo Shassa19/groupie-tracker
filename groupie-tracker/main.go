@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	api "groupie-tracker/Api"
 	apiRelation "groupie-tracker/ApiRelation"
 	"log"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 	"text/template"
@@ -18,29 +20,150 @@ var filtre string
 
 type Favorites []string
 
-func filter(listeArtist []api.Artist, filtre string) []api.Artist {
+// Fonction pour récupérer un cookie par son nom
+func getCookie(r *http.Request, name string) (string, error) {
+	cookie, err := r.Cookie(name)
+	if err != nil {
+		return "", err
+	}
+	return cookie.Value, nil
+}
+
+// Fonction pour récupérer les favoris depuis les cookies et les convertir en liste d'entiers
+func getFavorites(r *http.Request) ([]int, error) {
+	// Récupérer le cookie "favorites"
+	cookieValue, err := getCookie(r, "favorites")
+	if err != nil {
+		return nil, fmt.Errorf("cookie not found")
+	}
+
+	// Décoder l'URL pour obtenir la vraie valeur JSON
+	decodedValue, err := url.QueryUnescape(cookieValue)
+	if err != nil {
+		fmt.Println("Erreur lors du décodage de l'URL:", err)
+		return nil, fmt.Errorf("failed to decode cookie data")
+	}
+
+	// Décoder la chaîne JSON en un tableau de chaînes
+	var favoritesStr []string
+	err = json.Unmarshal([]byte(decodedValue), &favoritesStr)
+	if err != nil {
+		fmt.Println("Erreur lors de la conversion du cookie en JSON:", err)
+		return nil, fmt.Errorf("failed to parse cookie data")
+	}
+
+	// Convertir les chaînes en entiers
+	var favorites []int
+	for _, str := range favoritesStr {
+		num, err := strconv.Atoi(str)
+		if err != nil {
+			fmt.Println("Erreur lors de la conversion en entier:", err)
+			return nil, fmt.Errorf("failed to convert cookie data to int")
+		}
+		favorites = append(favorites, num)
+	}
+
+	return favorites, nil
+}
+
+func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Artist {
 	var listeFiltre []api.Artist
 
-	if filtre == "creation_avant_2000" {
+	if filtre == "creation_entre_1950_1959" {
 		for _, artist := range listeArtist {
-			if artist.CreationDate < 2000 {
+			if artist.CreationDate >= 1950 && artist.CreationDate <= 1959 {
 				listeFiltre = append(listeFiltre, artist)
 			}
 		}
 	}
 
-	if filtre == "creation_apres_2000" {
+	if filtre == "creation_entre_1960_1969" {
 		for _, artist := range listeArtist {
-			if artist.CreationDate >= 2000 {
+			if artist.CreationDate >= 1960 && artist.CreationDate <= 1969 {
 				listeFiltre = append(listeFiltre, artist)
 			}
 		}
 	}
 
-	if filtre == "solo" {
+	if filtre == "creation_entre_1970_1979" {
+		for _, artist := range listeArtist {
+			if artist.CreationDate >= 1970 && artist.CreationDate <= 1979 {
+				listeFiltre = append(listeFiltre, artist)
+			}
+		}
+	}
+
+	if filtre == "creation_entre_1980_1989" {
+		for _, artist := range listeArtist {
+			if artist.CreationDate >= 1980 && artist.CreationDate <= 1989 {
+				listeFiltre = append(listeFiltre, artist)
+			}
+		}
+	}
+
+	if filtre == "creation_entre_1990_1999" {
+		for _, artist := range listeArtist {
+			if artist.CreationDate >= 1990 && artist.CreationDate <= 1999 {
+				listeFiltre = append(listeFiltre, artist)
+			}
+		}
+	}
+
+	if filtre == "creation_entre_2000_2009" {
+		for _, artist := range listeArtist {
+			if artist.CreationDate >= 2000 && artist.CreationDate <= 2009 {
+				listeFiltre = append(listeFiltre, artist)
+			}
+		}
+	}
+
+	if filtre == "creation_entre_2010_2019" {
+		for _, artist := range listeArtist {
+			if artist.CreationDate >= 2010 && artist.CreationDate <= 2019 {
+				listeFiltre = append(listeFiltre, artist)
+			}
+		}
+	}
+
+	if filtre == "un_membre" {
 		for _, artist := range listeArtist {
 			if len(artist.Members) == 1 {
 				listeFiltre = append(listeFiltre, artist)
+			}
+		}
+	}
+
+	if filtre == "deux-membres" {
+		for _, artist := range listeArtist {
+			if len(artist.Members) == 2 {
+				listeFiltre = append(listeFiltre, artist)
+			}
+		}
+	}
+
+	if filtre == "groupe" {
+		for _, artist := range listeArtist {
+			if len(artist.Members) > 2 {
+				listeFiltre = append(listeFiltre, artist)
+			}
+		}
+	}
+
+	if filtre == "favoris" {
+		// Récupérer les IDs des favoris à partir du cookie
+		favorites, err := getFavorites(r)
+		if err != nil {
+			// Si aucune erreur, continuer avec une liste vide de favoris
+			fmt.Println("Erreur lors de la récupération des favoris:", err)
+			return nil
+		}
+
+		// Filtrer la liste des artistes pour ne garder que ceux qui sont dans les favoris
+		for _, artist := range listeArtist {
+			for _, favID := range favorites {
+				if strconv.Itoa(artist.ID) == strconv.Itoa(favID) {
+					listeFiltre = append(listeFiltre, artist)
+				}
 			}
 		}
 	}
@@ -53,19 +176,19 @@ func filter(listeArtist []api.Artist, filtre string) []api.Artist {
 }
 
 func filtrerHandler(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == http.MethodPost {
+		filtre := r.FormValue("filter")
+
+		// Applique le filtre
+		artists = filter(r, artists, filtre)
+	}
+
+	// Charge et affiche le template
 	tmpl, err := template.ParseFiles("index.html")
 	if err != nil {
 		http.Error(w, "Erreur lors du chargement de la page HTML", http.StatusInternalServerError)
 		return
-	}
-
-	// Vérifier si c'est une requête POST
-	if r.Method == http.MethodPost {
-
-		filtre := r.FormValue("filter")
-
-		// Appliquer le filtre à la liste des artistes
-		artists = filter(artists, filtre)
 	}
 
 	tmpl.Execute(w, artists)
@@ -85,7 +208,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func artistHandler(w http.ResponseWriter, r *http.Request) {
-	// Récupère l'ID depuis l'URL après "/infoartist/
+	// Récupère l'ID depuis l'URL après "/infoartist/"
 	idParam := strings.TrimPrefix(r.URL.Path, "/infoartist/")
 	if idParam == "" {
 		http.Error(w, "ID de l'artiste manquant", http.StatusBadRequest)
@@ -94,12 +217,30 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Conversion de l'ID en entier
 	id, err := strconv.Atoi(idParam)
-	if err != nil || id <= 0 || id > len(artists) {
+	if err != nil || id <= 0 {
+		http.Error(w, "ID invalide", http.StatusBadRequest)
+		return
+	}
+
+	// Recherche l'artiste correspondant dans la liste complète `artistsEntier`
+	var selectedArtist api.Artist
+	found := false
+
+	for _, artist := range artistsEntier { // On utilise la liste complète d'artistes, pas filtrée
+		if artist.ID == id {
+			selectedArtist = artist
+			found = true
+			break
+		}
+	}
+
+	// Si l'artiste n'est pas trouvé
+	if !found {
 		http.Error(w, "Artiste non trouvé", http.StatusNotFound)
 		return
 	}
 
-	// Récupère l'artiste correspondant
+	// Récupère les informations liées à l'artiste
 	relation, _ = apiRelation.FetchInfos(id)
 
 	// Charge et affiche la page infoartist.html
@@ -109,16 +250,17 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	println(relation.DatesLocations["georgia-usa"])
-
+	// Structure des données à passer à la page HTML
 	type Data struct {
 		Artist   api.Artist
 		Relation apiRelation.Relation
 	}
-	data := Data{Artist: artists[id-1], Relation: relation}
-	println(data.Relation.DatesLocations)
 
-	tmpl.Execute(w, data) // Passe l'artiste à la page HTML
+	// Création des données à passer au template
+	data := Data{Artist: selectedArtist, Relation: relation}
+
+	// Affichage du template avec les données
+	tmpl.Execute(w, data)
 }
 
 func main() {

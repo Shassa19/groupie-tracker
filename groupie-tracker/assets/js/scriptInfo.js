@@ -14,11 +14,13 @@ function getCookie(name) {
 function setFavorites(favorites) {
     document.cookie = `favorites=${encodeURIComponent(JSON.stringify(favorites))}; path=/; max-age=31536000`; // On créer notre coockie, on va 
     // donner la liste favorites et la converttir en JSOn pour l'utiliserr, puis on l'encode pour eviter les problemes de caractères spéciaux
+    console.log("Cookie 'favorites' set:", document.cookie); // Affiche les cookies dans la console
 }
 
 // Fonction pour récupérer les favoris depuis les cookies
 function getFavorites() {
     const favs = getCookie("favorites"); // on va recuperer la liste des favoris
+    console.log("Cookie 'favorites' retrieved:", favs); // Affiche le contenu du cookie dans la console
     return favs ? JSON.parse(favs) : []; // Si coockie existe on le converti en tableau
 }
 
@@ -29,6 +31,11 @@ let listeFavoris = getFavorites();
 
 //Recupere l'id de l'artist
 const lastPart = window.location.pathname.split("/").pop();
+console.log("ID de l'artiste:", lastPart); // Vérifiez si l'ID est bien récupéré
+
+if (isNaN(lastPart)) {
+    console.error("ID d'artiste invalide:", lastPart);
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     const favoriteBtn = document.querySelector(".favorite-btn");
