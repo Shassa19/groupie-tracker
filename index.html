@@ -8,22 +8,22 @@
 </head>
 
 <body>
-    <header>
-        <div class="header-left">
-            <h1>DÉCOUVRE DE NOUVEAUX ARTISTES</h1>
+<header>
+    <div class="header-left">
+        <h1>DÉCOUVRE DE NOUVEAUX ARTISTES</h1>
+    </div>
+    <div class="header-right">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Rechercher un artiste...">
+            <div id="searchResults" class="search-results"></div>
         </div>
-        <div class="header-right">
-            <div class="search-bar">
-                <input type="text" placeholder="Rechercher un artiste...">
-                <button>Rechercher</button>
-            </div>
-            <div class="toggle-mode">
-                <div class="toggle-handle"></div>
-                <img src="assets/sun.png" alt="Soleil" class="icon sun">
-                <img src="assets/moon.png" alt="Lune" class="icon moon">
-            </div>            
-    </header>
-    
+        <div class="toggle-mode">
+            <div class="toggle-handle"></div>
+            <img src="assets/sun.png" alt="Soleil" class="icon sun">
+            <img src="assets/moon.png" alt="Lune" class="icon moon">
+        </div>
+    </div>
+</header>
     <section class="hero">
         <div class="spinning-disk">
             <img src="assets/spinning_disk_20fps.gif" alt="Disque tournant">
@@ -67,18 +67,20 @@
     <div class="artists-container">
         {{range .}}
         <a href="/infoartist/{{.ID}}">
-            <div class="artist">
+            <div class="artist" data-id="{{.ID}}">
                 <img src="{{.Image}}" alt="Image de {{.Name}}">
                 <h2>{{.Name}}</h2>
             </div>
         </a>
         {{end}}
     </div>
+
  
         
     <div class="separator"></div>
 
     <script src="assets/js/script.js"></script>
+ <script src="assets/js/OK.js"></script>
 
     <footer>
         <p>© 2024 Groopie Trackers. Toute reproduction, même partielle, est interdite sans autorisation.</p>

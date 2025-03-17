@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	api "groupie-tracker/Api"
 	apiRelation "groupie-tracker/ApiRelation"
@@ -60,6 +61,15 @@ func artistHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, data) // Passe l'artiste à la page HTML
 }
 
+// Artistes format JSON
+func apiArtistsHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	err := json.NewEncoder(w).Encode(artists)
+	if err != nil {
+		http.Error(w, "Erreur lors de l'encodage JSON", http.StatusInternalServerError)
+	}
+}
+
 func main() {
 	// URL de l'API principale pour récupérer les artistes
 	url := "https://groupietrackers.herokuapp.com/api/artists"
@@ -74,6 +84,7 @@ func main() {
 
 	// On démarre le serveur HTTP
 	http.HandleFunc("/", homeHandler)
+	http.HandleFunc("/api/artists", apiArtistsHandler)
 	http.HandleFunc("/infoartist/", artistHandler)
 	http.Handle("/style/", http.StripPrefix("/style/", http.FileServer(http.Dir("style"))))
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("assets"))))
