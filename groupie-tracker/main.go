@@ -182,6 +182,8 @@ func filtrerHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Applique le filtre
 		artists = filter(r, artists, filtre)
+	} else {
+		artists = artistsEntier
 	}
 
 	// Charge et affiche le template
@@ -196,7 +198,11 @@ func filtrerHandler(w http.ResponseWriter, r *http.Request) {
 
 // Handler pour afficher la page HTML
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	// Charger le template HTML
+
+	if len(artists) == 0 {
+		artists = artistsEntier // Utilise la liste complète par défaut
+	}
+
 	tmpl, err := template.ParseFiles("index.html")
 	if err != nil {
 		http.Error(w, "Erreur lors du chargement de la page HTML", http.StatusInternalServerError)

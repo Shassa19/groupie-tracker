@@ -11,7 +11,7 @@ body {
     color: white; 
     margin: 0;
     padding: 0;
-    display: flex;
+    display: flex !important; 
     flex-direction: column;
     align-items: center;
     transition: background-color 0.3s, color 0.3s; 
@@ -20,10 +20,6 @@ body {
 body.light-mode {
     background-color: #dcdcdc; 
     color: black;
-}
-
-body.aaa {
-    background-color: #9b7676; 
 }
 
 a {
@@ -200,11 +196,99 @@ body.light-mode .block-container {
 
 /**-----------------------Fin carousel-----------------------*/
 
+/**-----------------------FILTRE--------------------*/
+
+.boutonFiltre {
+    margin-top: 100px;
+    margin-bottom: 30px;
+    font-family: 'MontserratAlternates', sans-serif;
+    width: 364px;
+    height: 88px;
+    font-size: 40px;
+    background-color: (217, 217, 217, 1);
+    transition:box-shadow 0.3s ease-in-out;
+    border-radius: 20px;
+    border: none;
+    background-color: rgba(217, 217, 217, 1);
+}
+
+.boutonFiltre:hover {
+    box-shadow: 10px 10px 0 rgba(93, 109, 126, 1);
+  }
+
+.menu_filtre {
+    display: none;
+}
+
+.menu_filtre.show {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: rgba(93, 109, 126, 1);
+    padding: 10px;
+    gap: 81px;
+    width: 990px; 
+    height: auto;
+    margin-top: auto;
+    border-radius: 20px;
+    
+}
+
+.menu_filtre.show button{
+    border-radius: 20px;
+    width: 121px;
+    height: 52px;
+    font-family: 'MontserratAlternates', sans-serif;
+    border: none;
+    background-color: rgba(217, 217, 217, 1);
+    transition:background-color 0.2s ease-in-out;
+}
+
+.menu_filtre.show button:hover{
+    background-color: rgb(182, 182, 182);
+}
+
+.filtreAnnee{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 14px;
+    justify-content: center;
+}
+
+
+.nbMembre{
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin: 19px;
+}
+
+.btnFavoris {
+    padding: 10px;
+    gap: 14px;
+    margin-left: 29px;
+}
+
+.btnReset {
+    padding: 10px;
+    width: 80% !important;
+    height: 52px;
+    margin-left: 9px;
+    font-family: 'MontserratAlternates', sans-serif;
+    margin-bottom: 14px;
+}
+
+
+/**-----------------------FIN FILTRE--------------------*/
+
+
 .artists-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 420px;
+    margin-top: 100px;
 }
 
 .artist {
@@ -224,10 +308,6 @@ body.light-mode .block-container {
     cursor: pointer;
     font-family: 'MontserratAlternates', sans-serif;
     font-size: 14px;
-}
-
-body.aaa .artists-container {
-    display: none;
 }
 
 body.light-mode .artist {
@@ -316,28 +396,4 @@ footer {
 body.light-mode footer {
     color: #333333; 
     opacity: 1; 
-}
-
-.menu_filtre {
-    display: flex;
-    flex-direction: column; /* Aligne les filtres sous forme de colonne */
-    align-items: flex-start;
-    margin: 20px;
-    gap: 10px;
-}
-
-.menu_filtre.visible {
-    display: block;
-}
-
-.filtreAnnee{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.nbMembre{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
 }
