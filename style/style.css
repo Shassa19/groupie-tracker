@@ -15,6 +15,7 @@ body {
     flex-direction: column;
     align-items: center;
     transition: background-color 0.3s, color 0.3s; 
+    overflow-x: hidden;
 }
 
 body.light-mode {
@@ -246,44 +247,44 @@ img {
 
 .spinning-disk {
     position: absolute;
-    bottom: 330px;
-    left: -175px; /* Déplace encore plus à gauche */
-    width: 900px; /* Ajuste la taille pour le fond */
-    height: 800px;
+    bottom: 80vw;
+    left: -40vw; /* Déplace encore plus à gauche */
+    width: 60vw; /* Ajuste la taille pour le fond */
+    height: 100vw;
     overflow: hidden; /* Cache la partie qui dépasse */
     z-index: -1; /* Met le disque en arrière-plan */
     transform: rotate(90deg); 
 }
 
 .spinning-disk img {
-    width: 100%;
-    height: 100%;
+    width: 50vw;
+    height: 50vw;
     object-fit: cover; 
 }
 
 .musical-note {
-    position: absolute;
-    top: 300px;
-    margin-left: 1200px;
+    position: relative;
+    top: 0;
+    left: 0;
     z-index: -1;
-    transform: scale(4); /* Agrandir la note de musique par un facteur de 2 */
+    transform: scale(0.7);
     object-fit: contain;
+    width: 80px; /* Réduit la taille si nécessaire */
+    height: 80px; 
 }
 
 .musical-note-container {
     position: absolute;
-    top: 300px;
-    margin-left: 500px;
+    top: 2vw;
+    left: 18vw; /* Aligne à gauche ou centre, selon tes besoins */
     z-index: -1;
-    display: flex; /* Pour aligner les images l'une à côté de l'autre */
-    transform: scale(4);
-    justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Aligne les éléments à gauche */
+    width: auto;
+    height: auto;  
 }
 
-.musical-note {
-    width: 100px; /* Ajuste la taille de l'image selon tes besoins */
-    height: 100px;
-}
 
 /** Footer */
 .separator {
@@ -423,3 +424,422 @@ body.light-mode footer {
       }
   }
 
+  @media (min-width: 768px) {
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #2e2e2e;
+        color: white; 
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: background-color 0.3s, color 0.3s; 
+    }
+    
+    body.light-mode {
+        background-color: #dcdcdc; 
+        color: black;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    h1 {
+        color: #d2d2d2;
+        margin: 0;
+    }
+    
+    header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background-color: #1e1e1e;
+    }
+    
+    .header-left {
+        display: flex;
+        align-items: center;
+        font-family: 'MontserratAlternates', sans-serif;
+        margin-left: 30px;
+    }
+    
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-right: 30px;
+    }
+    
+    .search-bar {
+        display: flex;
+        align-items: center;
+        background: #3a3a3a;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    
+    .search-bar input {
+        background: none;
+        border: none;
+        outline: none;
+        color: white;
+    }
+    
+    .search-bar button {
+        background: #555;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    /** Bouton pour la mode nuit */
+    
+    .toggle-mode {
+        width: 60px;
+        height: 30px;
+        background: #d4d4d4;
+        border-radius: 20px;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px;
+        transition: background 0.3s ease-in-out;
+    }
+    
+    .toggle-handle {
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        background: #333;
+        border-radius: 50%;
+        top: 7px;
+        left: 7px;
+        transition: left 0.3s ease-in-out;
+    }
+    
+    .icon {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+    }
+    
+    .sun {
+        right: 6px;
+        opacity: 1;
+        transition: opacity 0.3s ease-in-out;
+        top: 4px;
+    }
+    
+    .moon {
+        left: 6px;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        top: 4px;
+    }
+    
+    .toggle-mode.active {
+        background: #555;
+    }
+    
+    .toggle-mode.active .toggle-handle {
+        left: 35px;
+    }
+    
+    .toggle-mode.active .sun {
+        opacity: 0;
+    }
+    
+    .toggle-mode.active .moon {
+        opacity: 1;
+    }
+     /**Fin mode nuit*/
+    
+     /**---------------Carousel-----------------*/
+    
+    .block-container {
+        position: relative;
+        margin-top: 150px;
+        width: 1400px; /* Largeur du panneau */
+        height: 350px; /* Hauteur du panneau */
+        white-space: nowrap;
+        overflow: hidden;
+        box-shadow: inset 40px 0 20px -10px rgba(0, 0, 0, 0.5), inset -40px 0 20px -10px rgba(0, 0, 0, 0.5); /* Ombres sur les bords */
+        transition: 1s;
+    }
+    
+    body.light-mode .block-container {
+        transition: 1s;
+        box-shadow: inset 15px 0 20px -10px rgba(0, 0, 0, 0.5), inset -15px 0 20px -10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .featured-artists {
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        width: fit-content;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    
+    .track {
+        display: flex;
+        gap: 20px;
+        animation: carousel 120s linear infinite;
+    }
+    
+    /* Animation de défilement */
+    @keyframes carousel {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+    
+    /* Ajustement des images dans lex boxs*/
+    .artist {
+        flex: 0 0 290px; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    /**-----------------------Fin carousel-----------------------*/
+    
+    .artists-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 420px;
+    }
+    
+    .artist {
+        padding: 20px;
+        margin: 10px;
+        border-radius: 20px;
+        width: 250px;
+        height: 250px;
+        background-color: #060606;
+        color: #d2d2d2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s;
+        cursor: pointer;
+        font-family: 'MontserratAlternates', sans-serif;
+        font-size: 14px;
+    }
+    
+    body.light-mode .artist {
+        background-color: #FFFFFF;
+        color: #000000;
+        font-size: 14px;
+    }
+    
+    .artist:hover {
+        background-color: #555;
+    }
+    
+    body.light-mode .artist:hover {
+        background-color: #dedede;
+    }
+    
+    img {
+        display: block;
+        margin-top: 5%;
+        width: 200px;
+        height: 200px;
+        border-radius: 5px;
+    }
+    
+    .spinning-disk {
+        position: absolute;
+        bottom: -8vw;
+        left: -34vw; /* Déplace encore plus à gauche */
+        width: 60vw; /* Ajuste la taille pour le fond */
+        height: 80vw;
+        overflow: hidden; /* Cache la partie qui dépasse */
+        z-index: -1; /* Met le disque en arrière-plan */
+        transform: rotate(90deg); 
+    }
+    
+    .spinning-disk img {
+        width: 50vw;
+        height: 50vw;
+        object-fit: cover; 
+    }
+    
+    .musical-note {
+        position: absolute;
+        top: 2vw;
+        margin-left: -2vw;
+        z-index: -1;
+        transform: scale(4); /* Agrandir la note de musique par un facteur de 2 */
+        object-fit: contain;
+    }
+    
+    .musical-note-container {
+        position: absolute;
+        top: 2vw;
+        margin-left: 50vw;
+        z-index: -1;
+        display: flex; /* Pour aligner les images l'une à côté de l'autre */
+        transform: scale(4);
+        justify-content: space-between;
+    }
+    
+    .musical-note {
+        width: 100px; /* Ajuste la taille de l'image selon tes besoins */
+        height: 100px;
+    }
+    
+    /** Footer */
+    .separator {
+        width: 65%; /* Ajuste la largeur */
+        margin: 40px; /* Espace au-dessus et en dessous */
+        border: none;
+        height: 3px;
+        background-color: #D9D9D9; 
+    }
+    
+    body.light-mode .separator {
+        background-color: #2e2e2e; 
+    }
+    
+    footer {
+        font-family: 'MontserratAlternates', sans-serif; 
+        color: #FFFF; 
+        text-align: center; 
+        opacity: 30%;
+    }
+    
+    body.light-mode footer {
+        color: #333333; 
+        opacity: 1; 
+    }
+    
+    
+    /** Entiereté du bouton "filtres" */
+    .filters {
+        text-align: left;
+    }
+    
+    .wrapper {
+        display: flex;
+        justify-content: center;
+      }
+      
+      .cta {
+          position: absolute;
+          top: 850px;
+          left: 200px; 
+          display: flex;
+          padding: 10px 45px;
+          text-decoration: none;
+          font-family: 'MontserratAlternates', sans-serif;
+          font-size: 40px;
+          color: black;
+          background: #D9D9D9;
+          transition: 0.3s;
+          box-shadow: 6px 6px 0 #5D6D7E;
+          transform: skewX(-15deg);
+      }
+    
+      body.light-mode .cta {
+        background: #373737;
+        color: #ffffff;
+        transition: 0.3s;
+      }
+    
+      .cta path {
+        fill: #000000;
+        transition: 0.3s;
+      }
+    
+      body.light-mode .cta path {
+        fill: #ffffff; /* Changer la couleur par défaut de la flèche en mode clair */
+        transition: 0.3s;
+      }
+      
+      .cta:focus {
+        outline: none; 
+      }
+      
+      .cta:hover {
+          transition: 0.5s;
+          box-shadow: 10px 10px 0 #FBC638;
+      }
+      
+      .cta span:nth-child(2) {
+          transition: 0.5s;
+          margin-right: 0px;
+      }
+      
+      .cta:hover  span:nth-child(2) {
+          transition: 0.5s;
+          margin-right: 45px;
+      }
+      
+      span {
+          transform: skewX(15deg) 
+      }
+    
+      span:nth-child(2) {
+          width: 20px;
+          margin-left: 30px;
+          position: relative;
+          top: 12%;
+      }
+        
+      /**************SVG****************/
+      
+      path.one {
+          transition: 0.4s;
+          transform: translateX(-60%);
+      }
+      
+      path.two {
+          transition: 0.5s;
+          transform: translateX(-30%);
+      }
+      
+      .cta:hover path.three {
+          animation: color_anim 1s infinite 0.2s;
+      }
+      
+      .cta:hover path.one {
+          transform: translateX(0%);
+          animation: color_anim 1s infinite 0.6s;
+      }
+      
+      .cta:hover path.two {
+          transform: translateX(0%);
+          animation: color_anim 1s infinite 0.4s;
+      }
+      
+      /* SVG animations */
+      
+      @keyframes color_anim {
+          0% {
+              fill: black;
+          }
+          50% {
+              fill: #F0DA10;
+          }
+          100% {
+              fill: black;
+          }
+      }
+  }
