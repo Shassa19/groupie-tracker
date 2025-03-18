@@ -37,7 +37,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
+    padding: 2vw 20px;
     background-color: #1e1e1e;
 }
 
@@ -46,6 +46,7 @@ header {
     align-items: center;
     font-family: 'MontserratAlternates', sans-serif;
     margin-left: 30px;
+    font-size: 30%;
 }
 
 .header-right {
@@ -79,190 +80,135 @@ header {
     border-radius: 5px;
 }
 
+.search-results {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    z-index: 10;
+}
 
-  @media (min-width: 768px) {
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #2e2e2e;
-        color: white; 
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        transition: background-color 0.3s, color 0.3s; 
-    }
-    
-    body.light-mode {
-        background-color: #dcdcdc; 
-        color: black;
-    }
-    
-    a {
-        text-decoration: none;
-    }
-    
-    h1 {
-        color: #d2d2d2;
-        margin: 0;
-    }
-    
-    header {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 20px;
-        background-color: #1e1e1e;
-    }
-    
-    .header-left {
-        display: flex;
-        align-items: center;
-        font-family: 'MontserratAlternates', sans-serif;
-        margin-left: 30px;
-    }
-    
-    .header-right {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-right: 30px;
-    }
-    
-    .search-bar {
-        display: flex;
-        align-items: center;
-        background: #3a3a3a;
-        padding: 5px 10px;
-        border-radius: 5px;
-    }
-    
-    .search-bar input {
-        background: none;
-        border: none;
-        outline: none;
-        color: white;
-    }
-    
-    .search-bar button {
-        background: #555;
-        border: none;
-        color: white;
-        padding: 5px 10px;
-        cursor: pointer;
-        border-radius: 5px;
-    }
-    
-    /** Bouton pour la mode nuit */
-    
-    .toggle-mode {
-        width: 60px;
-        height: 30px;
-        background: #d4d4d4;
-        border-radius: 20px;
-        position: relative;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 5px;
-        transition: background 0.3s ease-in-out;
-    }
-    
-    .toggle-handle {
-        position: absolute;
-        width: 26px;
-        height: 26px;
-        background: #333;
-        border-radius: 50%;
-        top: 7px;
-        left: 7px;
-        transition: left 0.3s ease-in-out;
-    }
-    
-    .icon {
-        width: 25px;
-        height: 25px;
-        position: absolute;
-    }
-    
-    .sun {
-        right: 6px;
-        opacity: 1;
-        transition: opacity 0.3s ease-in-out;
-        top: 4px;
-    }
-    
-    .moon {
-        left: 6px;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-        top: 4px;
-    }
-    
-    .toggle-mode.active {
-        background: #555;
-    }
-    
-    .toggle-mode.active .toggle-handle {
-        left: 35px;
-    }
-    
-    .toggle-mode.active .sun {
-        opacity: 0;
-    }
-    
-    .toggle-mode.active .moon {
-        opacity: 1;
-    }
-     /**Fin mode nuit*/
-    
-     /**---------------Carousel-----------------*/
-    
-    .block-container {
-        position: relative;
-        margin-top: 150px;
-        width: 1400px; /* Largeur du panneau */
-        height: 350px; /* Hauteur du panneau */
-        white-space: nowrap;
-        overflow: hidden;
-        box-shadow: inset 40px 0 20px -10px rgba(0, 0, 0, 0.5), inset -40px 0 20px -10px rgba(0, 0, 0, 0.5); /* Ombres sur les bords */
-        transition: 1s;
-    }
-    
-    body.light-mode .block-container {
-        transition: 1s;
-        box-shadow: inset 15px 0 20px -10px rgba(0, 0, 0, 0.5), inset -15px 0 20px -10px rgba(0, 0, 0, 0.5);
-    }
-    
-    .featured-artists {
-        overflow: hidden;
-        white-space: nowrap;
-        position: relative;
-        width: fit-content;
-        gap: 10px;
-        margin-top: 20px;
-    }
-    
-    .track {
-        display: flex;
-        gap: 20px;
-        animation: carousel 120s linear infinite;
-    }
-    
-    /* Animation de défilement */
-    @keyframes carousel {
-        from {
-            transform: translateX(0);
-        }
-        to {
-            transform: translateX(-50%);
-        }
-    }
-    /**-----------------------Fin carousel-----------------------*/
+.search-results div {
+    padding: 10px;
+    cursor: pointer;
+}
 
-    /**-----------------------FILTRE--------------------*/
+/** Bouton pour la mode nuit */
+
+.toggle-mode {
+    width: 60px;
+    height: 30px;
+    background: #d4d4d4;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+.toggle-handle {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: #333;
+    border-radius: 50%;
+    top: 7px;
+    left: 7px;
+    transition: left 0.3s ease-in-out;
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+}
+
+.sun {
+    right: 6px;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+    top: 4px;
+}
+
+.moon {
+    left: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    top: 4px;
+}
+
+.toggle-mode.active {
+    background: #555;
+}
+
+.toggle-mode.active .toggle-handle {
+    left: 35px;
+}
+
+.toggle-mode.active .sun {
+    opacity: 0;
+}
+
+.toggle-mode.active .moon {
+    opacity: 1;
+}
+
+/**Fin mode nuit*/
+
+/**---------------Carousel-----------------*/
+    
+.block-container {
+    position: relative;
+    margin-top: 150px;
+    width: 1400px; /* Largeur du panneau */
+    height: 350px; /* Hauteur du panneau */
+    white-space: nowrap;
+    overflow: hidden;
+    box-shadow: inset 40px 0 20px -10px rgba(0, 0, 0, 0.5), inset -40px 0 20px -10px rgba(0, 0, 0, 0.5); /* Ombres sur les bords */
+    transition: 1s;
+}
+
+body.light-mode .block-container {
+    transition: 1s;
+    box-shadow: inset 15px 0 20px -10px rgba(0, 0, 0, 0.5), inset -15px 0 20px -10px rgba(0, 0, 0, 0.5);
+}
+
+.featured-artists {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: fit-content;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.track {
+    display: flex;
+    gap: 20px;
+    animation: carousel 120s linear infinite;
+}
+
+/* Animation de défilement */
+@keyframes carousel {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+/**-----------------------Fin carousel-----------------------*/
+
+/**-----------------------FILTRE--------------------*/
 
 .boutonFiltre {
     margin-top: 70px;
@@ -365,55 +311,122 @@ body.light-mode .menu_filtre.show {
 
 /**-----------------------FIN FILTRE--------------------*/
 
+.artists-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 100px;
+}
 
-    .artists-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 100px;
-    }
-    
-    .artist {
-        padding: 20px;
-        margin: 10px;
-        border-radius: 20px;
-        width: 250px;
-        height: 250px;
-        background-color: #060606;
-        color: #d2d2d2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.2s;
-        cursor: pointer;
-        font-family: 'MontserratAlternates', sans-serif;
-        font-size: 14px;
-    }
-    
-    body.light-mode .artist {
-        background-color: #FFFFFF;
-        color: #000000;
-        font-size: 14px;
-    }
-    
-    .artist:hover {
-        background-color: #555;
-    }
-    
-    body.light-mode .artist:hover {
-        background-color: #dedede;
-    }
-    
-    img {
-        display: block;
-        margin-top: 5%;
-        width: 200px;
-        height: 200px;
-        border-radius: 5px;
-    }
-    
+.artist {
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+    width: 250px;
+    height: 250px;
+    background-color: #060606;
+    color: #d2d2d2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+    cursor: pointer;
+    font-family: 'MontserratAlternates', sans-serif;
+    font-size: 14px;
+}
+
+body.light-mode .artist {
+    background-color: #FFFFFF;
+    color: #000000;
+    font-size: 14px;
+}
+
+.artist:hover {
+    background-color: #555;
+}
+
+body.light-mode .artist:hover {
+    background-color: #dedede;
+}
+
+img {
+    display: block;
+    margin-top: 5%;
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.spinning-disk {
+    position: absolute;
+    bottom: 110vw;
+    left: -34vw; /* Déplace encore plus à gauche */
+    width: 60vw; /* Ajuste la taille pour le fond */
+    height: 80vw;
+    overflow: hidden; /* Cache la partie qui dépasse */
+    z-index: -1; /* Met le disque en arrière-plan */
+    transform: rotate(90deg); 
+}
+
+.spinning-disk img {
+    width: 50vw;
+    height: 50vw;
+    object-fit: cover; 
+}
+
+.musical-note {
+    position: absolute;
+    top: 10vw;
+    margin-left: -2vw;
+    z-index: -1;
+    transform: scale(4); /* Agrandir la note de musique par un facteur de 2 */
+    object-fit: contain;
+}
+
+.musical-note-container {
+    position: absolute;
+    top: 2vw;
+    margin-left: 170vw;
+    z-index: -1;
+    display: flex; /* Pour aligner les images l'une à côté de l'autre */
+    transform: scale(4);
+    justify-content: space-between;
+}
+
+.musical-note {
+    width: 30px; /* Ajuste la taille de l'image selon tes besoins */
+    height: 30px;
+}
+
+/** Footer */
+.separator {
+    width: 65%; /* Ajuste la largeur */
+    margin: 40px; /* Espace au-dessus et en dessous */
+    border: none;
+    height: 3px;
+    background-color: #D9D9D9; 
+}
+
+body.light-mode .separator {
+    background-color: #2e2e2e; 
+}
+
+footer {
+    font-family: 'MontserratAlternates', sans-serif; 
+    color: #FFFF; 
+    text-align: center; 
+    opacity: 30%;
+}
+
+body.light-mode footer {
+    color: #333333; 
+    opacity: 1; 
+}
+
+/* Media Queries pour les tablettes et écrans plus larges */
+@media (min-width: 768px) { 
     .spinning-disk {
         position: absolute;
         bottom: -8vw;
@@ -430,7 +443,7 @@ body.light-mode .menu_filtre.show {
         height: 50vw;
         object-fit: cover; 
     }
-    
+
     .musical-note {
         position: absolute;
         top: 2vw;
@@ -454,48 +467,27 @@ body.light-mode .menu_filtre.show {
         width: 100px; /* Ajuste la taille de l'image selon tes besoins */
         height: 100px;
     }
-    
-    /** Footer */
-    .separator {
-        width: 65%; /* Ajuste la largeur */
-        margin: 40px; /* Espace au-dessus et en dessous */
-        border: none;
-        height: 3px;
-        background-color: #D9D9D9; 
-    }
-    
-    body.light-mode .separator {
-        background-color: #2e2e2e; 
-    }
-    
-    footer {
-        font-family: 'MontserratAlternates', sans-serif; 
-        color: #FFFF; 
-        text-align: center; 
-        opacity: 30%;
-    }
-    
-    body.light-mode footer {
-        color: #333333; 
-        opacity: 1; 
-    }
 
-    .search-results {
-        position: absolute;
-        top: 50px;
-        left: 0;
+    header {
         width: 100%;
-        background-color: #333;
-        color: white;
-        border-radius: 5px;
-        max-height: 200px;
-        overflow-y: auto;
-        display: none;
-        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background-color: #1e1e1e;
     }
     
-    .search-results div {
-        padding: 10px;
-        cursor: pointer;
+    .header-left {
+        display: flex;
+        align-items: center;
+        font-family: 'MontserratAlternates', sans-serif;
+        margin-left: 30px;
+    }
+    
+    .header-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-right: 30px;
     }
 }

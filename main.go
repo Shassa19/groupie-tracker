@@ -75,6 +75,9 @@ func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Arti
 				listeFiltre = append(listeFiltre, artist)
 			}
 		}
+		if len(listeFiltre) == 0 {
+			return filter(r, artistsEntier, filtre)
+		}
 	}
 
 	if filtre == "creation_entre_1960_1969" {
@@ -82,6 +85,9 @@ func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Arti
 			if artist.CreationDate >= 1960 && artist.CreationDate <= 1969 {
 				listeFiltre = append(listeFiltre, artist)
 			}
+		}
+		if len(listeFiltre) == 0 {
+			return filter(r, artistsEntier, filtre)
 		}
 	}
 
@@ -91,6 +97,9 @@ func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Arti
 				listeFiltre = append(listeFiltre, artist)
 			}
 		}
+		if len(listeFiltre) == 0 {
+			return filter(r, artistsEntier, filtre)
+		}
 	}
 
 	if filtre == "creation_entre_1980_1989" {
@@ -98,6 +107,9 @@ func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Arti
 			if artist.CreationDate >= 1980 && artist.CreationDate <= 1989 {
 				listeFiltre = append(listeFiltre, artist)
 			}
+		}
+		if len(listeFiltre) == 0 {
+			return filter(r, artistsEntier, filtre)
 		}
 	}
 
@@ -107,6 +119,9 @@ func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Arti
 				listeFiltre = append(listeFiltre, artist)
 			}
 		}
+		if len(listeFiltre) == 0 {
+			return filter(r, artistsEntier, filtre)
+		}
 	}
 
 	if filtre == "creation_entre_2000_2009" {
@@ -114,6 +129,9 @@ func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Arti
 			if artist.CreationDate >= 2000 && artist.CreationDate <= 2009 {
 				listeFiltre = append(listeFiltre, artist)
 			}
+		}
+		if len(listeFiltre) == 0 {
+			return filter(r, artistsEntier, filtre)
 		}
 	}
 
@@ -123,6 +141,9 @@ func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Arti
 				listeFiltre = append(listeFiltre, artist)
 			}
 		}
+		if len(listeFiltre) == 0 {
+			return filter(r, artistsEntier, filtre)
+		}
 	}
 
 	if filtre == "un_membre" {
@@ -130,6 +151,9 @@ func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Arti
 			if len(artist.Members) == 1 {
 				listeFiltre = append(listeFiltre, artist)
 			}
+		}
+		if len(listeFiltre) == 0 {
+			return filter(r, artistsEntier, filtre)
 		}
 	}
 
@@ -139,6 +163,9 @@ func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Arti
 				listeFiltre = append(listeFiltre, artist)
 			}
 		}
+		if len(listeFiltre) == 0 {
+			return filter(r, artistsEntier, filtre)
+		}
 	}
 
 	if filtre == "groupe" {
@@ -146,6 +173,9 @@ func filter(r *http.Request, listeArtist []api.Artist, filtre string) []api.Arti
 			if len(artist.Members) > 2 {
 				listeFiltre = append(listeFiltre, artist)
 			}
+		}
+		if len(listeFiltre) == 0 {
+			return filter(r, artistsEntier, filtre)
 		}
 	}
 
