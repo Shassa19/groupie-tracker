@@ -277,11 +277,22 @@ header {
     border: none;
     background-color: rgba(217, 217, 217, 1);
     cursor: pointer;
+    transition: 0.3s;
+}
+
+body.light-mode .boutonFiltre {
+    background-color: #2e2e2e;
+    color: white;
+    text-decoration-color: white;
 }
 
 .boutonFiltre:hover {
-    box-shadow: 10px 10px 0 rgba(93, 109, 126, 1);
+    box-shadow: 10px 10px 0 rgb(142, 142, 142);
   }
+
+  body.light-mode .boutonFiltre:hover {
+    background-color: #4f4f4f;
+}
 
 .menu_filtre {
     display: none;
@@ -299,6 +310,10 @@ header {
     margin-top: auto;
     border-radius: 20px;
 
+}
+
+body.light-mode .menu_filtre.show {
+    background-color: #4f4f4f;
 }
 
 .menu_filtre.show button{

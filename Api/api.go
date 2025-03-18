@@ -3,7 +3,6 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	apiRelation "groupie-tracker/ApiRelation"
 	"io"
 	"net/http"
 )
@@ -18,8 +17,6 @@ type Artist struct {
 	FirstAlbum   string   `json:"firstAlbum"`
 	Relation     string   `json:"relations"`
 }
-
-var relation apiRelation.Relation
 
 // Fonction pour récupérer les données depuis l'API
 func FetchArtists(url string) ([]Artist, error) {
