@@ -7,15 +7,25 @@
     <link rel="stylesheet" href="/style/styleArtist.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h2>DECOUVRE DE NOUVEAUX ARTISTES</h2>
+    <header>
+        <div class="header-left">
+            <h1>DÉCOUVRE DE NOUVEAUX ARTISTES</h1>
+
+            <div id="contenu"></div>
+
+        </div>
+        <div class="header-right">
             <div class="search-bar">
-                <img src="/assets/Search.svg" alt="Recherche">
-                <input type="text" placeholder="Rechercher...">
+                <input type="text" placeholder="Rechercher un artiste...">
+                <button>Rechercher</button>
             </div>
-        </header>
-        
+            <div class="toggle-mode">
+                <div class="toggle-handle"></div>
+                <img src="assets/sun.png" alt="Soleil" class="icon sun">
+                <img src="assets/moon.png" alt="Lune" class="icon moon">
+            </div>            
+    </header>
+    <div class="container">
         <div class="background">
             <img src="/assets/noteMusique.png" alt="Notes musique" class="noteMusique">
             <img src="/assets/disqueHaut.png" alt="Disque haut" class="disqueHaut">
@@ -23,23 +33,43 @@
         </div>
         
         <div class="artist-info">
-            <button class="close-btn">&#10006;</button>
-            <img src="{{.Artist.Image}}" alt="Image de {{.Artist.Name}}" class="artist-img">
-            <div class="details">
-                <h1>{{.Artist.Name}}</h1>
-                <p><strong>Creation Date :</strong> {{.Artist.CreationDate}}</p>
-                <p><strong>First Album :</strong> {{.Artist.FirstAlbum}}</p>
-                <p><strong>Members :</strong> {{.Artist.Members}}</p>
+            <div class="bouton">
+                <a href="http://localhost:8080/" class="close-btn">&#10006;</a>
+                <button class="favorite-btn">&#10084;</button>
+            </div>
+            <div class="detailArtist">
+                <div class ="photoinfo">
+                    <img src="{{.Artist.Image}}" alt="Image de {{.Artist.Name}}" class="artist-img">
+                <div class="details">
+                    <h1>{{.Artist.Name}}</h1>
+                    <p><strong>Creation Date :</strong> {{.Artist.CreationDate}}</p>
+                    <p><strong>First Album :</strong> {{.Artist.FirstAlbum}}</p>
+                    <p><strong>Members :</strong> <br />
+                        {{ range $index, $member := .Artist.Members }}
+                            {{ if $index }}- {{ end }}{{ $member }}
+                        {{ end }}
+                    </p>
+            </div>
+            </div>
             </div>
             <div class="concerts">
                 <h2>Concerts</h2>
-                <ul class="concert-list">
-                    {{ range $key, $value := .Relation.DatesLocations}}
-                        <li><strong>{{$key}} :</strong> {{$value}}</li>
-                    {{end}}
-                </ul>
+                <div class="liste">
+                    <ul class="concert-list">
+                        {{ range $city, $dates := .Relation.DatesLocations }}
+                            <li><strong>{{ $city }} :</strong> 
+                                {{ range $index, $date := $dates }}
+                                    {{ if $index }}, {{ end }}{{ $date }}
+                                {{ end }}
+                            </li>
+                        {{ end }}
+                    </ul>
+                </div>
             </div>
+            
         </div>
     </div>
+    <script src="/assets/js/scriptInfo.js"></script>
+    <script src="assets/js/OK.js"></script>
 </body>
 </html>

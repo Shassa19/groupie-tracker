@@ -19,11 +19,6 @@ type Artist struct {
 	Relation     string   `json:"relations"`
 }
 
-type Relations struct {
-	ID             int                 `json:"id"`
-	DatesLocations map[string][]string `json:"datesLocations"`
-}
-
 var relation apiRelation.Relation
 
 // Fonction pour récupérer les données depuis l'API
